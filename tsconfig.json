@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "ES6",
+        "target": "ES6",
+        "lib": ["ES6"],
+        "rootDir": ".",
+        "moduleResolution": "node",
+        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node", "jest", "akamai-edgeworkers"]
+    },
+    "include": [
+        "./src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

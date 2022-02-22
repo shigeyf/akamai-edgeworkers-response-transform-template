@@ -1,0 +1,8 @@
+{
+    "edgeworker-version": "0.1.0",
+    "description": "EdgeWorkers Response Transformer Sample Application",
+    "misc": {
+        "author": "Shige Fukushima",
+        "date": "February 22, 2022"
+    }
+}

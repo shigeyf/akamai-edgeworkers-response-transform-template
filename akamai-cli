@@ -1,0 +1,30 @@
+#!/bin/bash
+
+cli_json="akamai-cli.json"
+section=`cat ${cli_json} | jq -r '.["section"]'`
+edgeworkerId=`cat ${cli_json} | jq -r '.edgeworkers.edgeworkerId'`
+edgeworkerBundleVersion=`cat dist/bundle.json | jq -r '.["edgeworker-version"]'`
+akamai_ew_trace_header="Akamai-EW-Trace: "
+akamai_ew_trace_token="akamai-ew-trace-header.txt"
+
+case $1 in
+    "ew:deploy")
+        command="akamai edgeworkers --section ${section} upload --bundle $2 ${edgeworkerId}"
+    ;;
+    "ew:activate")
+        command="akamai edgeworkers --section ${section} activate ${edgeworkerId} $2 ${edgeworkerBundleVersion}"
+    ;;
+    "ew:status")
+        command="akamai edgeworkers --section ${section} status ${edgeworkerId}"
+    ;;
+    "ew:auth")
+        akamai edgeworkers --section ${section} create-auth-token --expiry 60 ${sandbox_property} | grep "^${akamai_ew_trace_header}" > ${akamai_ew_trace_token}
+        command=""
+    ;;
+    *)
+        command="echo 'No supported command: '$1"
+    ;;
+esac
+
+echo akamai-cli: [COMMAND] ${command}
+${command}

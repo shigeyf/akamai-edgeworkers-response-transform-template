@@ -1,0 +1,9 @@
+{
+    "section": "papi",
+    "edgeworkers": {
+        "edgeworkerId": 1,
+        "groupId": 1,
+        "resourceTierId": 200,
+        "name": "sample-edgeworkers"
+    }
+}
