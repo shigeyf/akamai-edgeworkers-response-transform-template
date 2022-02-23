@@ -61,8 +61,10 @@ describe("Test #1 for SampleTransformer module", (): void => {
             const chunkStr = new TextDecoder().decode(chunk);
             result = result + chunkStr;
         }
-        console.log("Test1 Expected:\n" + expected + "EOF");
-        console.log("Test1 Result:\n" + result + "EOF");
+        console.log("Test1 Expected: " + expected.length + " bytes\n");
+        console.log(expected + "EOF");
+        console.log("Test1 Expected: " + result.length + " bytes\n");
+        console.log(result + "EOF");
         expect(result === expected).toBe(true);
     });
 });
