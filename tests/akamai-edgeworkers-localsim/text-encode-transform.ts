@@ -1,5 +1,5 @@
 /**
- * akamai-edgeworkers-localsim/log.ts
+ * tests/akamai-edgeworkers-localsim/stream.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,31 +23,5 @@
  *
  */
 
-class Logger {
-    /**
-     * Emit a message to the log. If logging is not enabled, this is a noop.
-     *
-     * When logging is enabled, the format string indicates how to display
-     * the arguments. Format specifiers are:
-     *
-     * - %s - Call `Value::ToString()` on the corresponding argument.
-     * - %d or %i - Convert the argument to an integer.
-     * - %f - Convert the argument to a float.
-     * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
-     *
-     * See https://console.spec.whatwg.org/#formatter.
-     *
-     * When logging is disabled, the format string is not processed, which
-     * makes it more efficient than string arithmatic in production
-     * environments.
-     *
-     * @param format A format string, containing zero or more specifiers.
-     * @param values Zero or more values to record in the log.
-     */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    log(format: string, ...values: any): void {
-        console.log(format, ...values);
-    }
-}
-
-export const logger = new Logger();
+export { TextEncoderStream } from 'node:stream/web';
+export { TextDecoderStream } from 'node:stream/web';
