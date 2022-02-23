@@ -38,10 +38,8 @@ let debug = false;
 export class SampleTransformer extends TransformStream<string, string> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(queryParams: { [key: string]: string }) {
-        if (queryParams.hasOwnProperty("debug")) {
-            if (queryParams["debug"] === "true") {
-                debug = true;
-            }
+        if (queryParams["debug"] !== undefined && queryParams["debug"] === "true") {
+            debug = true;
         }
         if (debug) {
             logger.log("D:T:constructor");

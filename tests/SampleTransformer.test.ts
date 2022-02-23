@@ -48,9 +48,9 @@ const TestParameters: TestParams[] = [
 describe("Test #1 for SampleTransformer module", (): void => {
     test("Test #1-1: No Conversion Simple Transformer Test", async (): Promise<void> => {
         const url = TestParameters[0].rpRequestUrl;
-        const queryParams = { "debug": "true" };
-        const expected = TestParameters[0].expectedResponseBody!.toString();
-        
+        const queryParams = { debug: "true" };
+        const expected = TestParameters[0].expectedResponseBody?.toString();
+
         const rstream = new ReadableStream(new HttpFileSourceReader(url));
         const transformedStream1 = rstream
             .pipeThrough(new TextDecoderStream())
@@ -61,7 +61,7 @@ describe("Test #1 for SampleTransformer module", (): void => {
             const chunkStr = new TextDecoder().decode(chunk);
             result = result + chunkStr;
         }
-        console.log("Test1 Expected: " + expected.length + " bytes\n");
+        console.log("Test1 Expected: " + expected?.length + " bytes\n");
         console.log(expected + "EOF");
         console.log("Test1 Expected: " + result.length + " bytes\n");
         console.log(result + "EOF");

@@ -44,6 +44,7 @@ class Logger {
      * @param format A format string, containing zero or more specifiers.
      * @param values Zero or more values to record in the log.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     log(format: string, ...values: any): void {
         console.log(format, ...values);
     }
