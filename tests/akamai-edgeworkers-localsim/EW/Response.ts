@@ -43,7 +43,7 @@ export class Response implements HasStatus, MutatesHeaders, ReadsHeaders {
         Object.keys(headers).forEach((key) => {
             let headerValues = headers[key];
             if (!Array.isArray(headerValues)) {
-                headerValues = [ headers[key] as string ];
+                headerValues = [headers[key] as string];
             }
             this._headers[key] = headerValues;
         });
@@ -52,7 +52,7 @@ export class Response implements HasStatus, MutatesHeaders, ReadsHeaders {
     }
 
     getHeader(name: string): string[] | null {
-        if (this._headers.hasOwnProperty(name)) {
+        if (this._headers[name] != undefined) {
             return this._headers[name];
         }
         return null;

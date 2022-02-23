@@ -23,5 +23,5 @@
  *
  */
 
-export { TextEncoderStream } from 'node:stream/web';
-export { TextDecoderStream } from 'node:stream/web';
+export { TextEncoderStream } from "node:stream/web";
+export { TextDecoderStream } from "node:stream/web";

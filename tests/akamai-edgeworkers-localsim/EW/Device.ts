@@ -28,7 +28,7 @@
  * * If device properties can not be supplied for any reason,
  *   undefined is returned for each property
  */
- export class Device {
+export class Device {
     /**
      * Brand name of the device.
      */

@@ -26,7 +26,7 @@
 import { Headers } from "node-fetch";
 
 export function headersConvertForFetch(headers: { [others: string]: string | string[] }): [string, string][] {
-    let convertedHeaders = new Array<[string, string]>();
+    const convertedHeaders = new Array<[string, string]>();
 
     Object.keys(headers).forEach((key) => {
         if (Array.isArray(headers[key])) {
@@ -34,7 +34,7 @@ export function headersConvertForFetch(headers: { [others: string]: string | str
                 convertedHeaders.push([key, value]);
             });
         } else {
-            let value = headers[key] as string;
+            const value = headers[key] as string;
             convertedHeaders.push([key, value]);
         }
     });
@@ -42,13 +42,13 @@ export function headersConvertForFetch(headers: { [others: string]: string | str
 }
 
 export function headersConvertForEW(headers: Headers): { [others: string]: string[] } {
-    let convertedHeaders: { [others: string]: string[] } = {};
+    const convertedHeaders: { [others: string]: string[] } = {};
     headers.forEach((key, value) => {
         if (convertedHeaders[key] != undefined) {
-            let values = convertedHeaders[key];
+            const values = convertedHeaders[key];
             values.push(value);
         } else {
-            convertedHeaders[key] = [ value ];
+            convertedHeaders[key] = [value];
         }
     });
     return convertedHeaders;

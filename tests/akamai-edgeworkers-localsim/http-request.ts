@@ -36,6 +36,7 @@ class HttpSource implements UnderlyingSource {
         this.readable = readable;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     start(controller: any): void {
         this.readable.on("readable", () => {
             let chunk: string | Buffer;
@@ -53,8 +54,8 @@ class HttpSource implements UnderlyingSource {
  * Describes the result of a `httpRequest()`.
  */
 export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
-    status: number = 0;
-    ok: boolean = false;
+    status: number;
+    ok: boolean;
     body: ReadableStream;
 
     private _response: Response;
@@ -73,7 +74,7 @@ export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
      * response body. Note that the body is buffered in memory.
      */
     text(): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
+        return new Promise<string>((resolve /* reject */) => {
             resolve("text");
         });
     }
@@ -82,24 +83,32 @@ export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
      * Parses the body of the response as JSON. The response is buffered
      * and `JSON.parse()` is run on the text.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     json(): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return new Promise<any>((resolve /* reject */) => {
             resolve("");
         });
     }
 
     getHeader(name: string): string[] | null {
-        if (this.headers == undefined) { return null; }
-        Object.keys(this.headers).forEach((key) => {
-            if (key === name) {
-                return this.headers![key];
-            }
-        });
+        if (this.headers == undefined) {
+            return null;
+        } else {
+            const headers: EW.Headers = this.headers;
+            Object.keys(headers).forEach((key) => {
+                if (key === name) {
+                    return headers[key];
+                }
+            });
+        }
         return null;
     }
 
     getHeaders(): EW.Headers {
-        if (this.headers == undefined) { return {}; }
+        if (this.headers == undefined) {
+            return {};
+        }
         return this.headers;
     }
 }
@@ -135,27 +144,29 @@ export function httpRequest(
         if (options.method != undefined) {
             method = options.method;
         }
-        requestInit['method'] = method;
+        requestInit["method"] = method;
         if (options.headers != undefined) {
-            requestInit['headers'] = headersConvertForFetch(options.headers);
+            requestInit["headers"] = headersConvertForFetch(options.headers);
         }
         if (options.body != undefined) {
-            requestInit['body'] = options.body;
+            requestInit["body"] = options.body;
         }
         if (options.timeout != undefined) {
-            requestInit['timeout'] = options.timeout;
+            requestInit["timeout"] = options.timeout;
         }
     }
 
     return new Promise<HttpResponse>((resolve, reject) => {
         try {
             fetch(requestInfo, requestInit).then((response) => {
-                resolve(new HttpResponse(
-                    response,
-                    headersConvertForEW(response.headers),
-                    new ReadableStream(new HttpSource(response.body))
-                ));
-            })
+                resolve(
+                    new HttpResponse(
+                        response,
+                        headersConvertForEW(response.headers),
+                        new ReadableStream(new HttpSource(response.body))
+                    )
+                );
+            });
         } catch (err) {
             console.log("fetch error: " + err);
             reject();

@@ -24,4 +24,4 @@
  */
 
 // default node's URLSearchParams can be used
-export { URLSearchParams } from 'node:url';
+export { URLSearchParams } from "node:url";

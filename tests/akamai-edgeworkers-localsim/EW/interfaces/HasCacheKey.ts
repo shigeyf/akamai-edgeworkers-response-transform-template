@@ -6,6 +6,7 @@
 
 //import { CacheKey } from '../classes';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HasCacheKey {
     /**
      * An object for manipulating this requests cache key. Only present during `onClientRequest()`.

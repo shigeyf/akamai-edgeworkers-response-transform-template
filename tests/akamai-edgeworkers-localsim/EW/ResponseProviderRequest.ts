@@ -23,10 +23,10 @@
  *
  */
 
-import { Request } from './Request';
-import { UserLocation } from './UserLocation';
-import { Device } from './Device';
-import { ReadsHeaders, ReadAllHeader, Headers } from './interfaces';
+import { Request } from "./Request";
+import { UserLocation } from "./UserLocation";
+import { Device } from "./Device";
+import { ReadsHeaders, ReadAllHeader, Headers } from "./interfaces";
 
 export class ResponseProviderRequest extends Request implements ReadsHeaders, ReadAllHeader {
     private readonly _headers: { [key: string]: string[] };
@@ -43,7 +43,7 @@ export class ResponseProviderRequest extends Request implements ReadsHeaders, Re
         decice?: Device,
         headers?: { [key: string]: string[] }
     ) {
-        super(host, method, path, scheme, query, url, cpCode); //, userLocation, decice);
+        super(host, method, path, scheme, query, url, cpCode, userLocation, decice);
         this._headers = {};
         if (headers != undefined) {
             Object.keys(headers).forEach((key) => {
@@ -53,7 +53,7 @@ export class ResponseProviderRequest extends Request implements ReadsHeaders, Re
     }
 
     getHeader(name: string): string[] | null {
-        if (this._headers?.hasOwnProperty(name)) {
+        if (this._headers[name] != undefined) {
             return this._headers[name];
         }
         return null;

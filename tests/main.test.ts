@@ -23,12 +23,9 @@
  *
  */
 
-import { ReadableStream } from "./akamai-edgeworkers-localsim/streams";
-import { TextDecoder } from "node:util";
-
 import { EW } from "./akamai-edgeworkers-localsim/EW";
-import { HttpResponse } from "./akamai-edgeworkers-localsim/http-request";
 import { TestParams } from "./testutils/TestParams";
+import { TextDecoder } from "node:util";
 
 // Target Module for this test
 import { responseProvider } from "../src/main";
@@ -46,12 +43,12 @@ const TestParameters: TestParams[] = [
 
 describe("Test #2 for main responseProvider module", (): void => {
     test("Test #2-1: responseProvider Call Test", async (): Promise<void> => {
-        const url = TestParameters[0].rpRequestUrl;
-        const queryParams = { debug: "true" };
+        //const url = TestParameters[0].rpRequestUrl;
+        //const queryParams = { debug: "true" };
         const expected = TestParameters[0].expectedResponseBody?.toString();
 
         // Create a simulated Request for Response Provider
-        let req = new EW.ResponseProviderRequest(
+        const req = new EW.ResponseProviderRequest(
             "dash.akamaized.net",
             "GET",
             "/akamai/bbb_30fps/bbb_30fps.mpd",
@@ -61,8 +58,8 @@ describe("Test #2 for main responseProvider module", (): void => {
             12345
         );
 
-        let rpResponse = await responseProvider(req)
-        let ewResponse = rpResponse as EW.Response;
+        const rpResponse = await responseProvider(req);
+        const ewResponse = rpResponse as EW.Response;
         let result = "";
         for await (const chunk of ewResponse.body) {
             const chunkStr = new TextDecoder().decode(chunk);

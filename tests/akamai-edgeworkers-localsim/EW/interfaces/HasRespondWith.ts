@@ -44,5 +44,6 @@ export interface HasRespondWith {
      * @param body The content of the response body
      * @param deny_reason The deny reason set if the status code is a 403 (optional)
      */
+    // eslint-disable-next-line @typescript-eslint/ban-types
     respondWith(status: number, headers: object, body: string, deny_reason?: string): void;
 }

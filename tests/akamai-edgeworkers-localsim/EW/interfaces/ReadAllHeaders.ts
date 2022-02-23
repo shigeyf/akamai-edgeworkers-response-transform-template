@@ -4,7 +4,7 @@
  * Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
  */
 
-import { Headers } from './Headers';
+import { Headers } from "./Headers";
 
 export interface ReadAllHeader {
     /**

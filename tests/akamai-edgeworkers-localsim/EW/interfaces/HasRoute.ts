@@ -6,6 +6,7 @@
 
 //import { Destination } from '../classes';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HasRoute {
     /**
      * Routes the outbound origin request to a pre-defined origin server, a modified path, or a modified query string.
