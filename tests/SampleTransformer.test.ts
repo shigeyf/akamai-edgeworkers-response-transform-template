@@ -63,7 +63,7 @@ describe("Test #1 for SampleTransformer module", (): void => {
         }
         console.log("Test1 Expected: " + expected?.length + " bytes\n");
         console.log(expected + "EOF");
-        console.log("Test1 Expected: " + result.length + " bytes\n");
+        console.log("Test1 Result: " + result.length + " bytes\n");
         console.log(result + "EOF");
         expect(result === expected).toBe(true);
     });
