@@ -10,7 +10,11 @@
     "prettier": "prettier --write src/**/*.ts tests/**/*.ts",
     "start": "rollup -c -w",
     "build": "rollup -c && yarn bundle:build",
-    "bundle:build": "cp src/bundle.json dist/bundle.json && ./replace dist/main.js && (cd dist; rm -f ew-bundle.tgz; tar -zcvf ew-bundle.tgz bundle.json main.js)",
+    "bundle:build": "npm-run-all bundle:copyjson bundle:replace bundle:rmtarball bundle:tarball",
+    "bundle:copyjson": "cp src/bundle.json dist/bundle.json",
+    "bundle:replace": "./replace dist/main.js",
+    "bundle:rmtarball": "rimraf dist/ew-bundle.tgz",
+    "bundle:tarball": "cd dist && tar -zcvf ew-bundle.tgz bundle.json main.js",
     "clean": "rimraf ./dist",
     "test": "jest"
   },
