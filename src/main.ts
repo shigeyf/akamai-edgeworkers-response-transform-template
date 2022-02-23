@@ -30,7 +30,7 @@ import { httpRequest } from "http-request";
 import { createResponse } from "create-response";
 import { TextEncoderStream, TextDecoderStream } from "text-encode-transform";
 import { SampleTransformer } from "./SampleTransformer";
-//import { logger } from "log";
+import { logger } from "log";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const version = "@@VERSION@@";
@@ -63,13 +63,15 @@ function getJsonFromUrl(queryParams: string): { [key: string]: string } {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function responseProvider(request: EW.ResponseProviderRequest) {
     const queryParameters = getJsonFromUrl(request.query);
-    //logger.log("D:RP:host=%s",request.host);
-    //logger.log("D:RP:url=%s",request.url);
-    //logger.log("D:RP:path=%s",request.path);
-    //logger.log("D:RP:query=%s",request.query);
+    logger.log("D:RP:host=%s", request.host);
+    logger.log("D:RP:url=%s", request.url);
+    logger.log("D:RP:path=%s", request.path);
+    logger.log("D:RP:query=%s", request.query);
+    logger.log("D:RP:QPs=%o", queryParameters);
+
     return httpRequest(`${request.scheme}://${request.host}${request.path}`)
         .then((response) => {
-            //logger.log("D:RP:hr-cr");
+            logger.log("D:RP:Calling create-response");
             return createResponse(
                 response.status,
                 {},
@@ -79,7 +81,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
                     .pipeThrough(new TextEncoderStream())
             );
         })
-        .catch(() => {
-            //logger.log("D:RP:hr-err");
+        .catch((err) => {
+            logger.log("D:RP:http-request[error], %s", err);
         });
 }
