@@ -40,8 +40,8 @@ import { SampleTransformer } from "../src/SampleTransformer";
 
 const TestParameters: TestParams[] = [
     new TestParams(
-        "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
-        "tests/results/TestResult_module1_test1.mpd"
+        "https://edgeworkersorigin.azurewebsites.net/index.html",
+        "tests/results/TestResult_module1_test1.html"
     )
 ];
 

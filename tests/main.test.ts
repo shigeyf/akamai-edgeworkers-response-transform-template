@@ -36,8 +36,8 @@ import { responseProvider } from "../src/main";
 
 const TestParameters: TestParams[] = [
     new TestParams(
-        "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
-        "tests/results/TestResult_module1_test1.mpd"
+        "https://edgeworkersorigin.azurewebsites.net/index.html",
+        "tests/results/TestResult_module1_test1.html"
     )
 ];
 
@@ -49,12 +49,12 @@ describe("Test #2 for main responseProvider module", (): void => {
 
         // Create a simulated Request for Response Provider
         const req = new EW.ResponseProviderRequest(
-            "dash.akamaized.net",
+            "edgeworkersorigin.azurewebsites.net",
             "GET",
-            "/akamai/bbb_30fps/bbb_30fps.mpd",
+            "/index.html",
             "https",
             "debug=true&test1=value1",
-            "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
+            "https://edgeworkersorigin.azurewebsites.net/index.html",
             12345
         );
 
