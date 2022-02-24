@@ -155,7 +155,7 @@ This test does not expect to change your test target source code which use EdgeW
 
 Jest can support module name mapping feature to map the module names in your source codes to another module names when testing in your local computer.
 
-You can see an example **jest.config.js** as below. This project prepares a shim "streams" module (a kind of wrapper module) for local testing, which refer Node.js WHATWG Streams modules.
+You can see an example of **jest.config.js** and a shim "streams" module (a kind of wrapper module) for your local testing as below. 
 
 ```javascript
 // jest.config.js
@@ -173,6 +173,17 @@ module.exports = {
 export * from "node:stream/web";
 ```
 
+In this exmaple, Jest will convert EdgeWorkers "**streams**" modues to this local "streams" module, so that your implemented Transformer module can refer `node:stream/web` WHATWG Streams implementation in Node.js) when test module will be executed:
+
+This module mapping is from:
+```javascript
+import { TransformStream } from "streams"
+```
+to:
+```javascript
+import { TransformStream } from "./tests/akamai-edgeworkers-localsim/streams"
+```
+
 
 ### 4. Test your ResponseProvider handler implementaion (with using EdgeWorkers local simulator implementation)
 
@@ -188,6 +199,19 @@ This project provides a sample (and simple) EdgeWorkers local simulator under `t
 - `streams` built-in module (which refers `node:stream/web`)
 - `text-encode-transform` built-in module (which refers `node:stream/web`)
 - `url-search-params` built-in module (which refers `node:url`)
+
+By using the local simulator above, you can also use the same module mapping idea in the previous section for testing your ResponseProvider handler implementation.
+
+> **WARNING**: Please note that there is no guarantees for perfect compatibility with EdgeWorkers real implementation in this local simulator implementation. It would be better to focus just on your debugging and testing of your implemented logics.
+
+Here is a sample code for the testing and expects to use [Jest](https://jestjs.io/) and [ts-jest](https://kulshekhar.github.io/ts-jest/) for testing.
+
+In this sample code, at first, you will need to create a `EW.ResponseProviderRequest` object for your simulated test, and it will be passed to `responseProvider()` API which is in your `main.ts` implementation for your testing.
+
+Then, `responseProvider()` function will return a response object which contains WHATWG `ReadableStream` object.
+
+You will finally check the `ReadableStream` obejct which contains your manipulated data which is transformed by your Transformer implementation.
+
 
 ```typescript
 // tests/main.test.ts
