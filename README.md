@@ -202,7 +202,7 @@ This testing is bit tricky because you will need to have a EdgeWorkers implement
 This project template provides a sample (and simple) EdgeWorkers local simulator under `tests/akamai-edgeworkers-localsim` folder as a sample implementation for local testing, which contains:
 - EdgeWorkers classes and interfaces (such as EW.ResponseProviderRequest, EW.Response objects)
 - `create-response` built-in module
-- `http-request` built-in module
+- `http-request` built-in module (which internally triggers a HTTP request with node-fetch)
 - `log` built-in module (which is a simple shim module of `console.log` function)
 - `streams` built-in module (which refers `node:stream/web`)
 - `text-encode-transform` built-in module (which refers `node:stream/web`)
