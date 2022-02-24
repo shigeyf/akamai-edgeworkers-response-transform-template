@@ -38,12 +38,15 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
     // Call httpRequest to get a target web resource/content for response manipulation
     return httpRequest(`${request.scheme}://${request.host}${request.path}`)
         .then((response) => {
-            // Once you will get a response, then create a response to end-users by manipulating with 'stream'
+            // Once you will get a response, then create a response to end-users by manipulating with 'stream'.
             return createResponse(
                 response.status,
                 {},
-                // Response manipulation is done in 'stream pipeline' (with pipeThrough() function)
-                // `SampleTransformer` stream transformer is expected to handle text data as input rather than binary and the output stream data is expected to be a binary data after transforming with `SampleTransformer`, thus TextDecoderStream()/TextEncoderStream() are used in the piprline.
+                // Response manipulation is done in 'stream pipeline' (with pipeThrough() function).
+                // `SampleTransformer` stream transformer is expected to handle text data as input
+                // rather than binary and the output stream data is expected to be a binary data
+                // after transforming with `SampleTransformer`, thus TextDecoderStream()/TextEncoderStream()
+                // are used in the piprline.
                 response.body
                     .pipeThrough(new TextDecoderStream())
                     .pipeThrough(new SampleTransformer())
@@ -69,23 +72,24 @@ export class SampleTransformer extends TransformStream<string, string> {
         let enqueueBuffer = "";
 
         function start(controller: any): void {
-            // you can put some initialization codes for your stream tranfomer when staring transform
+            // you can put some initialization codes for your stream tranfomer when staring transform.
         }
 
         function transform(chunk: any, controller: any): void {
-            // you can put some manipulation codes to transform stream chunks
-            // let manipulated = someManipulationFn(chunk);
-            // then, you can put a code to enqueue your manipulated chunks to the transformer controller
-            // controller.enqueue(chunk);
+            // you can put some manipulation codes to transform stream chunks.
+            //   let manipulated = someManipulationFn(chunk);
+            // then, you can put a code to enqueue your manipulated chunks to the transformer controller.
+            //   controller.enqueue(chunk);
 
             // This example is very simple to put chunk into a local buffer.
             enqueueBuffer += chunk;
         }
 
         function flush(controller: any): void {
-            // you can put some finalization codes to finish your transformer process
+            // you can put some finalization codes to finish your transformer process.
 
-            // This example is very simple to enqueue the data in the local buffer in where all chunks are put at tranform() function.
+            // This example is very simple to enqueue the data in the local buffer
+            // in where all chunks are put at tranform() function.
             controller.enqueue(enqueueBuffer);
         }
 
@@ -123,29 +127,31 @@ describe("Test for SampleTransformer module", (): void => {
         const url = "https://edgeworkersorigin.azurewebsites.net/index.html";
         const expected = fs.readFileSync("tests/results/TestResult_module1_test1.html");
 
-        // Setup streams with your SampleTransformer with using Node.js WHATWG Streams implementation 
-        // HttpFileSourceReader is an UnderlyingSource implementation for ReadbleStream, which implements HTTP GET with node-fetch
-        // You can get the detailed implementation at tests/testutils/HttpFileSourceReader.ts
+        // Setup streams with your SampleTransformer with using Node.js WHATWG Streams implementation.
+        // HttpFileSourceReader is an UnderlyingSource implementation for ReadbleStream,
+        // which implements HTTP GET with node-fetch
+        // You can get the detailed implementation at tests/testutils/HttpFileSourceReader.ts.
         const rstream = new ReadableStream(new HttpFileSourceReader(url));
         const transformedStream1 = rstream
             .pipeThrough(new TextDecoderStream())
             .pipeThrough<string>(new SampleTransformer(queryParams) as TransformStream)
             .pipeThrough(new TextEncoderStream());
 
-        // Once you build a stream pipeline for your testing, then you can get streaming data as below and convert it to text data.
+        // Once you build a stream pipeline for your testing, then you can get streaming data as below
+        // and convert it to text data.
         let result = "";
         for await (const chunk of transformedStream1) {
             const chunkStr = new TextDecoder().decode(chunk);
             result = result + chunkStr;
         }
         
-        // You can use console.log for your debugging
+        // You can use console.log for your debugging.
         //console.log("Test1 Expected: " + expected?.length + " bytes\n");
         //console.log(expected + "EOF");
         //console.log("Test1 Result: " + result.length + " bytes\n");
         //console.log(result + "EOF");
 
-        // Checking the actual manipulated results and expected data 
+        // Checking the actual manipulated results and expected data.
         expect(result === expected).toBe(true);
     });
 });
@@ -226,7 +232,7 @@ describe("Test for main module", (): void => {
     test("Test #2", async (): Promise<void> => {
         const expected = fs.readFileSync("tests/results/TestResult_module1_test1.html");
 
-        // Create a simulated Test Request for Response Provider
+        // Create a simulated Test Request for Response Provider.
         const req = new EW.ResponseProviderRequest(
             "edgeworkersorigin.azurewebsites.net",
             "GET",
@@ -237,24 +243,26 @@ describe("Test for main module", (): void => {
             12345
         );
 
-        // Call responseProvider EdgeWorkers API surface for this testing
+        // Call responseProvider EdgeWorkers API surface for this testing.
         const rpResponse = await responseProvider(req);
-        // We expects EW.Response object as returned object from responseProvider in this EdgeWorkers local simulator implementation
+        // We expects EW.Response object as returned object from responseProvider
+        // of this EdgeWorkers local simulator implementation.
         const ewResponse = rpResponse as EW.Response;
-        // ewResponse.body is a ReadableStream which contains a manipulated result of response body for your test request, which is transformed by your transformer inmplementation
+        // ewResponse.body is a ReadableStream which contains a manipulated result of response body for your test request,
+        // which is transformed by your transformer inmplementation
         let result = "";
         for await (const chunk of ewResponse.body) {
             const chunkStr = new TextDecoder().decode(chunk);
             result = result + chunkStr;
         }
 
-        // You can use console.log for your debugging
+        // You can use console.log for your debugging.
         //console.log("Test1 Expected: " + expected?.length + " bytes\n");
         //console.log(expected + "EOF");
         //console.log("Test1 Result: " + result.length + " bytes\n");
         //console.log(result + "EOF");
 
-        // Checking the actual manipulated results and expected data 
+        // Checking the actual manipulated results and expected data.
         expect(result === expected).toBe(true);
     });
 });
