@@ -62,7 +62,7 @@ export function createResponse(
     headers: Headers,
     body: CreateResponseBody,
     denyReason?: string
-// eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
 ): object {
     return new EW.Response(status, headers, body, denyReason);
 }
