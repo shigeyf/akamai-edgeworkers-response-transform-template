@@ -1,2 +1,3 @@
 # keep LF for test result files
 tests/results/*.mpd text eol=lf
+tests/results/*.html text eol=lf
