@@ -4,7 +4,7 @@
 
 This repository is a sample project source code and template for Akamai EdgeWorkers Response Stream Transform to develop, debug, and test your EdgeWorkers application.
 
-Akamai EdgeWorkers supports the [WHATWG Streams](https://streams.spec.whatwg.org/) specification, which is typiespecially used for (Response Orchestration](https://techdocs.akamai.com/edgeworkers/docs/response-orchestration) to generate and manipulate response bodies within an EdgeWorkers handler function by using built-in **http-request** (`httpRequest()` function) and **create-response** (`createResponse()` function) modules in the `responseProvider` event handler.
+Akamai EdgeWorkers supports the [WHATWG Streams](https://streams.spec.whatwg.org/) specification, which is typically used for (Response Orchestration](https://techdocs.akamai.com/edgeworkers/docs/response-orchestration) to generate and manipulate response bodies within an EdgeWorkers handler function by using built-in **http-request** (`httpRequest()` function) and **create-response** (`createResponse()` function) modules in the `responseProvider` event handler.
 
 > Response Orchestration, also known as Dynamic Content Assembly, is the ability to create on-the-fly response data and content. You can use Response Orchestration to dynamically create tailored, personalized data or web content for a specific set of users or devices. You can also source data and content from multiple server-side APIs or content origins. Response Orchestration supports conditions when combining multiple data sets or HTML fragments.
 
@@ -16,7 +16,7 @@ Two important limitations are in EdgeWorkers in Response Provider handler. Pleas
 * Maximum body size for responses from an EdgeWorkers function to a client browser
     - 2048 characters if you use request.respondWith() in the onClientRequest or onClientResponse event handler.
 
-With considering this limitations, using 'stream' is often a realistic option in an EdgeWorkers application for your Response Orchestration scenarios, but your 'stream' implementation sometimes may be getting bit complex when developing and/or debuging your codes. EdgeWorkers supports to [enable JavaScript logging](https://techdocs.akamai.com/edgeworkers/docs/enable-javascript-logging), but the maximum log size per event handler is 1024 bytes and your log contents will be truncated if the log contents exceed 1024 bytes, and so it would be difficult to do debugging and testing even with enabling logging.
+With considering this limitations, using 'stream' is often a realistic option in an EdgeWorkers application for your Response Orchestration scenarios, but your 'stream' implementation sometimes may be getting bit complex when developing and/or debugging your codes. EdgeWorkers supports to [enable JavaScript logging](https://techdocs.akamai.com/edgeworkers/docs/enable-javascript-logging), but the maximum log size per event handler is 1024 bytes and your log contents will be truncated if the log contents exceed 1024 bytes, and so it would be difficult to do debugging and testing even with enabling logging.
 
 It would be better for your project to consider if/how you can develop and debug your EdgeWorkers app on your local computer. Thus, here is a sample template project for your EdgeWorkers Response Stream Transforming application.
 
@@ -96,13 +96,13 @@ export class SampleTransformer extends TransformStream<string, string> {
 
 ### 3. Test your Transformer (Response Manipulation)
 
-This section explaines how to test for your Transformer unit module.
+This section explains how to test for your Transformer unit module.
 
-An idea of testing your Transformer in your local computer without deploying your codes onto EdgeWorkers is to use "node:stream/web", since Node.js v16.5.0 or later has supported [WHATWG Streams](https://streams.spec.whatwg.org/) fortunately and we can leverage the WHATWG Stream implementation for yoru local testing.
+An idea of testing your Transformer in your local computer without deploying your codes onto EdgeWorkers is to use "node:stream/web", since Node.js v16.5.0 or later has supported [WHATWG Streams](https://streams.spec.whatwg.org/) fortunately and we can leverage the WHATWG Stream implementation for your local testing.
 
 Here is a sample code for the testing and expects to use [Jest](https://jestjs.io/) and [ts-jest](https://kulshekhar.github.io/ts-jest/) for testing.
 
-Once you will get an implementation of your HTTP Request ['Underlying Souce'](https://streams.spec.whatwg.org/#underlying-source-api) as a 'stream' source, you can build a stream pipeline with your Transformer implementation with `pipeThrough()` function of the WHATWG Stream instances.
+Once you will have an implementation of your HTTP Request ['Underlying Source'](https://streams.spec.whatwg.org/#underlying-source-api) as a 'stream' source, you can build a stream pipeline with your Transformer implementation with `pipeThrough()` function of the WHATWG Stream instances.
 
 In this example, `HttpFileSourceReader` class is an UnderlyingSource implementation for source-stream `ReadableStream`, which implements HTTP GET with node-fetch module. You can get the detailed implementation at `tests/testutils/HttpFileSourceReader.ts`.
 
@@ -120,8 +120,8 @@ import { SampleTransformer } from "../src/SampleTransformer";
 
 describe("Test for SampleTransformer module", (): void => {
     test("Test #1", async (): Promise<void> => {
-        const url = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
-        const expected = fs.readFileSync("tests/results/TestResult_module1_test1.mpd");
+        const url = "https://edgeworkersorigin.azurewebsites.net/index.html";
+        const expected = fs.readFileSync("tests/results/TestResult_module1_test1.html");
 
         // Setup streams with your SampleTransformer with using Node.js WHATWG Streams implementation 
         // HttpFileSourceReader is an UnderlyingSource implementation for ReadbleStream, which implements HTTP GET with node-fetch
@@ -173,7 +173,7 @@ module.exports = {
 export * from "node:stream/web";
 ```
 
-In this exmaple, Jest will convert EdgeWorkers "**streams**" modues to this local "streams" module, so that your implemented Transformer module can refer `node:stream/web` WHATWG Streams implementation in Node.js) when test module will be executed:
+In this example, Jest will convert EdgeWorkers "**streams**" modues to this local "streams" module, so that your implemented Transformer module can refer `node:stream/web` WHATWG Streams implementation in Node.js) when test module will be executed.
 
 This module mapping is from:
 ```javascript
@@ -185,13 +185,13 @@ import { TransformStream } from "./tests/akamai-edgeworkers-localsim/streams"
 ```
 
 
-### 4. Test your ResponseProvider handler implementaion (with using EdgeWorkers local simulator implementation)
+### 4. Test your ResponseProvider handler implementation (with using EdgeWorkers local simulator implementation)
 
-This section explaines how to test your `responseProvider()` handler implementation at EdgeWorkers JavaScript API surface, more than testing a single Transformer unit module.
+This section explains how to test your `responseProvider()` handler implementation at EdgeWorkers JavaScript API surface, more than testing a single Transformer unit module.
 
 This testing is bit tricky because you will need to have a EdgeWorkers implementation for your local testing, which requires EdgeWorkers built-in library modules, such as `create-response`, `http-request`, and so on.
 
-This project provides a sample (and simple) EdgeWorkers local simulator under `tests/akamai-edgeworkers-localsim` folder as a sample implementation for local testing, which contains:
+This project template provides a sample (and simple) EdgeWorkers local simulator under `tests/akamai-edgeworkers-localsim` folder as a sample implementation for local testing, which contains:
 - EdgeWorkers classes and interfaces (such as EW.ResponseProviderRequest, EW.Response objects)
 - `create-response` built-in module
 - `http-request` built-in module
@@ -210,7 +210,7 @@ In this sample code, at first, you will need to create a `EW.ResponseProviderReq
 
 Then, `responseProvider()` function will return a response object which contains WHATWG `ReadableStream` object.
 
-You will finally check the `ReadableStream` obejct which contains your manipulated data which is transformed by your Transformer implementation.
+You will finally check the `ReadableStream` object which contains your manipulated data which is transformed by your Transformer implementation.
 
 
 ```typescript
@@ -224,16 +224,16 @@ import { responseProvider } from "../src/main";
 
 describe("Test for main module", (): void => {
     test("Test #2", async (): Promise<void> => {
-        const expected = fs.readFileSync("tests/results/TestResult_module1_test1.mpd");
+        const expected = fs.readFileSync("tests/results/TestResult_module1_test1.html");
 
         // Create a simulated Test Request for Response Provider
         const req = new EW.ResponseProviderRequest(
-            "dash.akamaized.net",
+            "edgeworkersorigin.azurewebsites.net",
             "GET",
-            "/akamai/bbb_30fps/bbb_30fps.mpd",
+            "/index.html",
             "https",
-            "debug=true&test1=value1",
-            "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
+            "",
+            "https://edgeworkersorigin.azurewebsites.net/index.html",
             12345
         );
 
