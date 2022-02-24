@@ -4,11 +4,13 @@
 
 This repository is a sample project source code and template for Akamai EdgeWorkers Response Stream Transform to develop, debug, and test your EdgeWorkers application.
 
-Akamai EdgeWorkers supports the [WHATWG Streams](https://streams.spec.whatwg.org/) specification, which is typically used for (Response Orchestration](https://techdocs.akamai.com/edgeworkers/docs/response-orchestration) to generate and manipulate response bodies within an EdgeWorkers handler function by using built-in **http-request** (`httpRequest()` function) and **create-response** (`createResponse()` function) modules in the `responseProvider` event handler.
+Akamai EdgeWorkers supports the [WHATWG Streams](https://streams.spec.whatwg.org/) specification, which is typically used for [Response Orchestration](https://techdocs.akamai.com/edgeworkers/docs/response-orchestration) to generate and manipulate response bodies within an EdgeWorkers handler function by using built-in **http-request** (`httpRequest()` function) and **create-response** (`createResponse()` function) modules in the `responseProvider` event handler.
+
+Here is a quote about Response Orchestration in EdgeWorkers in the Akamai EdgeWorkers public documentation.
 
 > Response Orchestration, also known as Dynamic Content Assembly, is the ability to create on-the-fly response data and content. You can use Response Orchestration to dynamically create tailored, personalized data or web content for a specific set of users or devices. You can also source data and content from multiple server-side APIs or content origins. Response Orchestration supports conditions when combining multiple data sets or HTML fragments.
 
-Two important limitations are in EdgeWorkers in Response Provider handler. Please see the article about [Limitations](https://techdocs.akamai.com/edgeworkers/docs/limitations) in EdgeWorkers documentation.
+Regarding Response Orchestration for your response manipulation scenarios, two important limitations are in EdgeWorkers in Response Provider handler. Please see the article about [Limitations](https://techdocs.akamai.com/edgeworkers/docs/limitations) in EdgeWorkers documentation.
 
 * Maximum body size for responses from an EdgeWorkers function to a browser when the response is passed through as a string
     - 100,000 bytes if you pass a string to createResponse in responseProvider
@@ -61,7 +63,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
 ### 2. Develop your Transformer (Response Manipulation)
 
-You can extend `TransformStream` for your `SampleTransformer` class to implement your detailed logic of response body manipulation, like below, for such as HTML content manipulation, media manifest file manipulation, and so on. Here is a very simple example of Transformer.
+You can extend `TransformStream` for your `SampleTransformer` class to implement your detailed logics of response body manipulation, like below, for such as HTML content manipulation, media manifest file manipulation, and so on. Here is a very simple example of Transformer.
 
 ```typescript
 // src/SampleTransformer.ts
@@ -159,7 +161,7 @@ describe("Test for SampleTransformer module", (): void => {
 
 This test does not expect to change your test target source code which use EdgeWorkers `streams` library module. How can we test your code??
 
-Jest can support module name mapping feature to map the module names in your source codes to another module names when testing in your local computer.
+Jest can support moduleNameMapper feature to map original module names in your source codes to another module names only when testing in your local computer.
 
 You can see an example of **jest.config.js** and a shim "streams" module (a kind of wrapper module) for your local testing as below. 
 
@@ -179,9 +181,9 @@ module.exports = {
 export * from "node:stream/web";
 ```
 
-In this example, Jest will convert EdgeWorkers "**streams**" modues to this local "streams" module, so that your implemented Transformer module can refer `node:stream/web` WHATWG Streams implementation in Node.js) when test module will be executed.
+In this example, Jest will convert EdgeWorkers "**streams**" modules to this local "streams" module, so that your implemented Transformer module can refer `node:stream/web` WHATWG Streams implementation in Node.js when test module will be executed.
 
-This module mapping is from:
+The 'stream' module is mapped by Jest's Module Mapping from:
 ```javascript
 import { TransformStream } from "streams"
 ```
@@ -206,7 +208,7 @@ This project template provides a sample (and simple) EdgeWorkers local simulator
 - `text-encode-transform` built-in module (which refers `node:stream/web`)
 - `url-search-params` built-in module (which refers `node:url`)
 
-By using the local simulator above, you can also use the same module mapping idea in the previous section for testing your ResponseProvider handler implementation.
+By using the local simulator above, you can also use the same Jest's module name mapping idea in the previous section for testing your ResponseProvider handler implementation.
 
 > **WARNING**: Please note that there is no guarantees for perfect compatibility with EdgeWorkers real implementation in this local simulator implementation. It would be better to focus just on your debugging and testing of your implemented logics.
 
