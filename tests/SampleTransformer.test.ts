@@ -42,7 +42,7 @@ import { SampleTransformer } from "../src/SampleTransformer";
 //
 // Test Module #1
 //
-
+import { test1StringArrayInput } from "./results/TestResult_module1_test1";
 const TestParameters: TestParams[] = [
     new TestParams(
         "https://edgeworkersorigin.azurewebsites.net/index.html",
@@ -64,7 +64,7 @@ describe("Test #1 for SampleTransformer module", (): void => {
         //const rstream = new ReadableStream(new LocalFilePushSourceReader(path, 10));
         //const rstream = new ReadableStream(new HttpPullSourceReader(url, 10));
         //const rstream = new ReadableStream(new HttpPushSourceReader(url, 10));
-        //const rstream = new ReadableStream(new StringArrayPushSourceReader(["abc", "def"]));
+        //const rstream = new ReadableStream(new StringArrayPushSourceReader(test1StringArrayInput));
 
         const transformedStream1 = rstream
             .pipeThrough(new TextDecoderStream())
