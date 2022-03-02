@@ -29,6 +29,11 @@ import { TextDecoderStream, TextEncoderStream } from "./akamai-edgeworkers-local
 
 import { TextDecoder } from "node:util";
 import { HttpFileSourceReader } from "./testutils/HttpFileSourceReader";
+import { LocalFilePullSourceReader } from "./testutils/LocalFilePullSourceReader";
+import { LocalFilePushSourceReader } from "./testutils/LocalFilePushSourceReader";
+import { HttpPullSourceReader } from "./testutils/HttpPullSourceReader";
+import { HttpPushSourceReader } from "./testutils/HttpPushSourceReader";
+import { StringArrayPushSourceReader } from "./testutils/StringArrayPushSourceReader";
 import { TestParams } from "./testutils/TestParams";
 
 // Target Module for this test
@@ -48,10 +53,19 @@ const TestParameters: TestParams[] = [
 describe("Test #1 for SampleTransformer module", (): void => {
     test("Test #1-1: No Conversion Simple Transformer Test", async (): Promise<void> => {
         const url = TestParameters[0].rpRequestUrl;
+        const path = TestParameters[0].outputFilename;
         const queryParams = { debug: "true" };
         const expected = TestParameters[0].expectedResponseBody?.toString();
 
+        // very simpla example of UnderlyingSource implementation
         const rstream = new ReadableStream(new HttpFileSourceReader(url));
+        // other exmaples of UnderlyingSource implementations
+        //const rstream = new ReadableStream(new LocalFilePullSourceReader(path, 10));
+        //const rstream = new ReadableStream(new LocalFilePushSourceReader(path, 10));
+        //const rstream = new ReadableStream(new HttpPullSourceReader(url, 10));
+        //const rstream = new ReadableStream(new HttpPushSourceReader(url, 10));
+        //const rstream = new ReadableStream(new StringArrayPushSourceReader(["abc", "def"]));
+
         const transformedStream1 = rstream
             .pipeThrough(new TextDecoderStream())
             .pipeThrough<string>(new SampleTransformer(queryParams) as TransformStream)
