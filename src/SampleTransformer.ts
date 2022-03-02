@@ -60,7 +60,7 @@ export class SampleTransformer extends TransformStream<string, string> {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unused-vars
         function transform(chunk: any, controller: any): void {
             if (debug) {
-                logger.log("D:T:transform");
+                logger.log("D:T:transform: %d bytes", chunk.length);
             }
             enqueueBuffer += chunk;
         }
