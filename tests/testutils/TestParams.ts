@@ -27,10 +27,10 @@ import * as fs from "fs";
 
 export class TestParams {
     rpRequestUrl: string;
-    outputFilename: string | undefined;
+    outputFilename: string;
     expectedResponseBody: Buffer | undefined;
 
-    constructor(url: string, outputFilename?: string) {
+    constructor(url: string, outputFilename: string) {
         this.rpRequestUrl = url;
         this.outputFilename = outputFilename;
         if (this.outputFilename != undefined) {

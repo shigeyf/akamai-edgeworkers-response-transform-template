@@ -1,11 +1,7 @@
 /**
  * tests/HttpFileSourceReader.ts
  *
- * Author: sfukushi@akamai.com
- * Date: August 30, 2021
- */
-/**
- * Copyright (c) 2021 Akamai Technologies (Shige Fukushima <sfukushi@akamai.com>)
+ * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,22 +36,24 @@ export class HttpFileSourceReader {
         try {
             fetch(this.url)
                 .then((response) => response.body)
-                .then((res) =>
+                .then((res) => {
                     res.on("readable", () => {
                         let chunk: string | Buffer;
                         while (null !== (chunk = res.read())) {
                             controller.enqueue(chunk);
                         }
-                    })
-                )
-                .then((res) =>
+                    });
                     res.on("end", () => {
                         controller.close();
-                    })
-                )
-                .catch((err) => console.log(err));
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    controller.close();
+                });
         } catch (error) {
             console.log(error);
+            controller.close();
         }
     }
 }

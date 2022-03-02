@@ -1,11 +1,7 @@
 /**
  * tests/utils.ts
  *
- * Author: sfukushi@akamai.com
- * Date: August 30, 2021
- */
-/**
- * Copyright (c) 2021 Akamai Technologies (Shige Fukushima <sfukushi@akamai.com>)
+ * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
