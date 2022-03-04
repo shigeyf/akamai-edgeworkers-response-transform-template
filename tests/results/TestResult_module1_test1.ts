@@ -3,7 +3,7 @@
 //
 
 export const test1StringArrayInput = [
-    '<!doctype html>\n',
+    "<!doctype html>\n",
     '<html lang="en">\n',
     "<head>\n",
     '  <meta charset="utf-8">\n',

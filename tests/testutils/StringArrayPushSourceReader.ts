@@ -34,8 +34,8 @@ export class StringArrayPushSourceReader implements UnderlyingSource {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
     start(controller: any): void {
-        this.chunkArray.forEach(chunk => {
-            controller.enqueue(Buffer.from(chunk));            
+        this.chunkArray.forEach((chunk) => {
+            controller.enqueue(Buffer.from(chunk));
         });
         controller.close();
     }

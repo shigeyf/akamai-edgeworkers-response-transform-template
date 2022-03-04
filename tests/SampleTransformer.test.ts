@@ -29,12 +29,17 @@ import { TextDecoderStream, TextEncoderStream } from "./akamai-edgeworkers-local
 
 import { TextDecoder } from "node:util";
 import { HttpFileSourceReader } from "./testutils/HttpFileSourceReader";
-import { LocalFilePullSourceReader } from "./testutils/LocalFilePullSourceReader";
-import { LocalFilePushSourceReader } from "./testutils/LocalFilePushSourceReader";
-import { HttpPullSourceReader } from "./testutils/HttpPullSourceReader";
-import { HttpPushSourceReader } from "./testutils/HttpPushSourceReader";
-import { StringArrayPushSourceReader } from "./testutils/StringArrayPushSourceReader";
 import { TestParams } from "./testutils/TestParams";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { LocalFilePullSourceReader } from "./testutils/LocalFilePullSourceReader";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { LocalFilePushSourceReader } from "./testutils/LocalFilePushSourceReader";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { HttpPullSourceReader } from "./testutils/HttpPullSourceReader";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { HttpPushSourceReader } from "./testutils/HttpPushSourceReader";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { StringArrayPushSourceReader } from "./testutils/StringArrayPushSourceReader";
 
 // Target Module for this test
 import { SampleTransformer } from "../src/SampleTransformer";
@@ -42,17 +47,19 @@ import { SampleTransformer } from "../src/SampleTransformer";
 //
 // Test Module #1
 //
-import { test1StringArrayInput } from "./results/TestResult_module1_test1";
 const TestParameters: TestParams[] = [
     new TestParams(
         "https://edgeworkersorigin.azurewebsites.net/index.html",
         "tests/results/TestResult_module1_test1.html"
     )
 ];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { test1StringArrayInput } from "./results/TestResult_module1_test1";
 
 describe("Test #1 for SampleTransformer module", (): void => {
     test("Test #1-1: No Conversion Simple Transformer Test", async (): Promise<void> => {
         const url = TestParameters[0].rpRequestUrl;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const path = TestParameters[0].outputFilename;
         const queryParams = { debug: "true" };
         const expected = TestParameters[0].expectedResponseBody?.toString();
