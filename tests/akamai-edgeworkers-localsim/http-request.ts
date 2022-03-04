@@ -28,6 +28,9 @@ import fetch from "node-fetch";
 import { RequestInfo, RequestInit, Response } from "node-fetch";
 import { UnderlyingSource, ReadableStream } from "node:stream/web";
 import { headersConvertForEW, headersConvertForFetch } from "./internals";
+import { EdgeGridHttpRequestHook } from "./EdgeGrid/EdgeGridHttpRequestHook";
+
+const EDGEKV_EDGEDB_API = "https://edgekv.akamai-edge-svcs.net";
 
 class HttpSource implements UnderlyingSource {
     private readable: NodeJS.ReadableStream;
@@ -74,7 +77,7 @@ export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
      * response body. Note that the body is buffered in memory.
      */
     text(): Promise<string> {
-        return this._response.text();;
+        return this._response.text();
     }
 
     /**
@@ -131,8 +134,8 @@ export function httpRequest(
         timeout?: number;
     }
 ): Promise<HttpResponse> {
-    const requestInfo: RequestInfo = url;
-    const requestInit: RequestInit = {};
+    let requestInfo: RequestInfo = url;
+    let requestInit: RequestInit = {};
 
     if (options != undefined) {
         let method = "GET";
@@ -150,6 +153,18 @@ export function httpRequest(
             requestInit["timeout"] = options.timeout;
         }
     }
+
+    // Hook for EdgeKV
+    //console.log(requestInfo);
+    //console.log(requestInit);
+    const urlObject = new URL(url);
+    if (urlObject.origin == EDGEKV_EDGEDB_API) {
+        const replacedRequest = EdgeGridHttpRequestHook(requestInfo, requestInit);
+        requestInfo = replacedRequest.requestInfo;
+        requestInit = replacedRequest.requestInit;
+    }
+    //console.log(requestInfo);
+    //console.log(requestInit);
 
     return new Promise<HttpResponse>((resolve, reject) => {
         try {
