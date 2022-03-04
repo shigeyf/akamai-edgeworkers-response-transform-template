@@ -74,9 +74,7 @@ export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
      * response body. Note that the body is buffered in memory.
      */
     text(): Promise<string> {
-        return new Promise<string>((resolve /* reject */) => {
-            resolve("text");
-        });
+        return this._response.text();;
     }
 
     /**
@@ -85,10 +83,7 @@ export class HttpResponse implements EW.ReadsHeaders, EW.ReadAllHeader {
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     json(): Promise<any> {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return new Promise<any>((resolve /* reject */) => {
-            resolve("");
-        });
+        return this._response.json();
     }
 
     getHeader(name: string): string[] | null {
