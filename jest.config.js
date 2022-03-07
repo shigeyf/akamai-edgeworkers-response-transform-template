@@ -10,10 +10,11 @@ module.exports = {
     testMatch: ["<rootDir>/**/tests/**/*.test.(ts|tsx|js)"],
     moduleNameMapper: {
         "^create-response$": "<rootDir>/tests/akamai-edgeworkers-localsim/create-response",
-        "^streams$": "<rootDir>/tests/akamai-edgeworkers-localsim/streams",
-        "^text-encode-transform$": "<rootDir>/tests/akamai-edgeworkers-localsim/text-encode-transform",
         "^http-request$": "<rootDir>/tests/akamai-edgeworkers-localsim/http-request",
         "^log$": "<rootDir>/tests/akamai-edgeworkers-localsim/log",
+        "^streams$": "<rootDir>/tests/akamai-edgeworkers-localsim/streams",
+        "^text-encode-transform$": "<rootDir>/tests/akamai-edgeworkers-localsim/text-encode-transform",
+        "^url-search-params$": "<rootDir>/tests/akamai-edgeworkers-localsim/url-search-params"
     },
     verbose: true
 };
