@@ -1,5 +1,5 @@
 /**
- * akamai-edgeworkers-localsim/EW/interfaces/Headers.ts
+ * akamai-edgeworkers-localsim/EW/interfaces/HeadersUI.ts
  *
  * Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
  */

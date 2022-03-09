@@ -4,12 +4,12 @@
  * Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
  */
 
-//import { CacheKey } from '../classes';
+import { CacheKey } from './CacheKey';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HasCacheKey {
     /**
      * An object for manipulating this requests cache key. Only present during `onClientRequest()`.
      */
-    //readonly cacheKey: CacheKey;
+    readonly cacheKey: CacheKey;
 }
