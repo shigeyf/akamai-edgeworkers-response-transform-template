@@ -50,31 +50,31 @@ export class Cookies {
      *      take a string and return the result of the custom decoding of
      *      that string.
      */
-    constructor(header?: string | string[] | null, options?: object) {
+    constructor(header?: string | string[] | null, options?: any) {
         this._cookies = [];
         let decoder = (s: string) => {
             return s;
         };
-        if (options != undefined && options.hasOwnProperty("decode")) {
-            let fn = options["decode"];
+        if (options != undefined && Object.prototype.hasOwnProperty.call(options, "decode")) {
+            const fn = options["decode"];
             if (typeof fn == "function") {
                 decoder = fn;
             }
         }
         if (Array.isArray(header)) {
             header.forEach((h) => {
-                let decoded = decoder(h);
-                let kvps = decoded.split(";");
+                const decoded = decoder(h);
+                const kvps = decoded.split(";");
                 kvps.forEach((kvp) => {
-                    let [key, value] = kvp.split("=");
+                    const [key, value] = kvp.split("=");
                     this._cookies.push({ name: key, value: value });
                 });
             });
         } else {
-            let decoded = decoder(header);
-            let kvps = decoded.split(";");
+            const decoded = decoder(header);
+            const kvps = decoded.split(";");
             kvps.forEach((kvp) => {
-                let [key, value] = kvp.split("=");
+                const [key, value] = kvp.split("=");
                 this._cookies.push({ name: key, value: value });
             });
         }
@@ -112,7 +112,7 @@ export class Cookies {
      * @param name cookie name.
      */
     getAll(name: string): string[] {
-        let result = [];
+        const result = [];
         this._cookies.forEach((kvp) => {
             if (kvp.name == name) {
                 result.push(kvp.value);
@@ -125,7 +125,7 @@ export class Cookies {
      * Get all names of existing cookies held by this Cookies object.
      */
     names(): string[] {
-        let result = [];
+        const result = [];
         this._cookies.forEach((kvp) => {
             result.push(kvp.name);
         });
@@ -147,7 +147,7 @@ export class Cookies {
      * @param name Cookie name.
      */
     delete(name: string): void {
-        let filtred = this._cookies.filter((item) => item.name !== name);
+        const filtred = this._cookies.filter((item) => item.name !== name);
         this._cookies = filtred;
     }
 }
@@ -198,7 +198,7 @@ export class SetCookie {
      * Returns the string representation to use when setting the Set-Cookie
      * header, encoding values by default.
      */
-    toHeader(options?: Object): string {
+    toHeader(options?: any): string {
         let cookie = "";
         if (this.name == undefined || this.value == undefined) {
             return "";
@@ -226,10 +226,10 @@ export class SetCookie {
             cookie = cookie + " SameSite=" + this.sameSite + ";";
         }
 
-        if (options != undefined && options.hasOwnProperty("encode")) {
-            let fn = options["encode"];
+        if (options != undefined && Object.prototype.hasOwnProperty.call(options, "encode")) {
+            const fn = options["encode"];
             if (typeof fn == "function") {
-                let encodedCookie = fn(cookie);
+                const encodedCookie = fn(cookie);
                 cookie = encodedCookie;
             }
         }

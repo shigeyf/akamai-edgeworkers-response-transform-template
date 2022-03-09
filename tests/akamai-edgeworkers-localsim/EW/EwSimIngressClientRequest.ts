@@ -81,6 +81,7 @@ export class EwSimIngressClientRequest
     //
     // Implementations for HasRespondWith interfaces
     //
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
     respondWith(status: number, headers: object, body: string, deny_reason?: string): void {
         // To Be Implemented - No implementation currently
         return;
@@ -89,6 +90,7 @@ export class EwSimIngressClientRequest
     //
     // Implementations for HasRoute interfaces
     //
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     route(destination: Destination): void {
         // To Be Implemented - No implementation currently
         return;
@@ -128,7 +130,7 @@ export class EwSimIngressClientRequest
     // Implementations for ReadsHeaders interfaces
     //
     getHeader(name: string): string[] | null {
-        if (this._headers.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._headers, name)) {
             return this._headers[name];
         }
         return null;
@@ -138,7 +140,7 @@ export class EwSimIngressClientRequest
     // Implementations for ReadsVariables interfaces
     //
     getVariable(name: string): string | undefined {
-        if (this._variables.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._variables, name)) {
             return this._variables[name];
         }
         return undefined;

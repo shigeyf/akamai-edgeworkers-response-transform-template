@@ -90,7 +90,7 @@ export class EwSimMutableRequest extends EwSimRequest implements MutableRequest 
     // Implementations for ReadsHeaders interfaces
     //
     getHeader(name: string): string[] | null {
-        if (this._headers.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._headers, name)) {
             return this._headers[name];
         }
         return null;
@@ -100,7 +100,7 @@ export class EwSimMutableRequest extends EwSimRequest implements MutableRequest 
     // Implementations for ReadsVariables interfaces
     //
     getVariable(name: string): string | undefined {
-        if (this._variables.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._variables, name)) {
             return this._variables[name];
         }
         return undefined;

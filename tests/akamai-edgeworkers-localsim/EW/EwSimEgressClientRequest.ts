@@ -70,7 +70,7 @@ export class EwSimEgressClientRequest extends EwSimRequest implements EgressClie
     // Implementations for ReadsVariables interfaces
     //
     getHeader(name: string): string[] | null {
-        if (this._headers.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._headers, name)) {
             return this._headers[name];
         }
         return null;
@@ -80,7 +80,7 @@ export class EwSimEgressClientRequest extends EwSimRequest implements EgressClie
     // Implementations for ReadsHeaders interfaces
     //
     getVariable(name: string): string | undefined {
-        if (this._variables.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(this._variables, name)) {
             return this._variables[name];
         }
         return undefined;

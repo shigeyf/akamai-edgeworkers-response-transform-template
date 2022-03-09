@@ -52,6 +52,7 @@ export class EwSimCacheKey implements CacheKey {
      *
      * @param name The name of the query arg to include in the cache key
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeQueryArgument(name: string): void {
         // To Be Implemented - No implementation currently
         return;
@@ -63,6 +64,7 @@ export class EwSimCacheKey implements CacheKey {
      *
      * @param name The name of the cookie to include in the cid
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeCookie(name: string): void {
         // To Be Implemented - No implementation currently
         return;
@@ -74,6 +76,7 @@ export class EwSimCacheKey implements CacheKey {
      *
      * @param name The name of the header to include in the cid
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeHeader(name: string): void {
         // To Be Implemented - No implementation currently
         return;
@@ -85,6 +88,7 @@ export class EwSimCacheKey implements CacheKey {
      *
      * @param name The name of the variable to include in the cid
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeVariable(name: string): void {
         // To Be Implemented - No implementation currently
         return;
