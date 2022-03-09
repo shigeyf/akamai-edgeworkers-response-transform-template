@@ -9,6 +9,7 @@ module.exports = {
     testEnvironment: "node",
     testMatch: ["<rootDir>/**/tests/**/*.test.(ts|tsx|js)"],
     moduleNameMapper: {
+        "^cookie$": "<rootDir>/tests/akamai-edgeworkers-localsim/cookie",
         "^create-response$": "<rootDir>/tests/akamai-edgeworkers-localsim/create-response",
         "^http-request$": "<rootDir>/tests/akamai-edgeworkers-localsim/http-request",
         "^log$": "<rootDir>/tests/akamai-edgeworkers-localsim/log",
