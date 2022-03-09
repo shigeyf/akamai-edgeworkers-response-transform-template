@@ -30,7 +30,7 @@
  * Cookies are often user or session specific, stripping the cookie helps improve the offload of cached objects.
  * To keep the Set-Cookie header, you can use the <edgeservices:cookie.pass-set-cookie-policy> metadata tag.
  * This metadata tag lets you keep the Set-Cookie header modifications made during the onClientResponse event.
- * 
+ *
  * Provides access to the Cookies header of a request, allowing the
  * addition, removal, or modification of cookie values.
  */
