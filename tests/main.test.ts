@@ -47,7 +47,7 @@ describe("Test #2 for main responseProvider module", (): void => {
         //const queryParams = { debug: "true" };
         const expected = TestParameters[0].expectedResponseBody?.toString();
 
-        // Create a simulated Request for Response Provider
+        // Create a simulated Request object for Response Provider in your test.
         const req = new EW.EwSimResponseProviderRequest(
             "edgeworkersorigin.azurewebsites.net",
             "GET",
@@ -58,8 +58,13 @@ describe("Test #2 for main responseProvider module", (): void => {
             12345
         );
 
+        // Call responseProvider EdgeWorkers API surface for this testing.
         const rpResponse = await responseProvider(req);
+        // We expects EW.EwSimResponseWithBody object as returned object from responseProvider
+        // of this EdgeWorkers local simulator implementation.
         const ewResponse = rpResponse as EW.EwSimResponseWithBody;
+        // ewResponse.body is a ReadableStream which contains a manipulated result of response body
+        // for your test request, which is transformed by your transformer inmplementation
         let result = "";
         for await (const chunk of ewResponse.body) {
             const chunkStr = new TextDecoder().decode(chunk);

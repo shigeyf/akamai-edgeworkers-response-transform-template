@@ -200,7 +200,7 @@ This section explains how to test your `responseProvider()` handler implementati
 This testing is bit tricky because you will need to have a EdgeWorkers implementation for your local testing, which requires EdgeWorkers built-in library modules, such as `create-response`, `http-request`, and so on.
 
 This project template provides a sample (and simple) EdgeWorkers local simulator under `tests/akamai-edgeworkers-localsim` folder as a sample implementation for local testing, which contains:
-- EdgeWorkers classes and interfaces (such as EW.ResponseProviderRequest, EW.Response objects)
+- EdgeWorkers classes and interfaces (such as EW.EwSimResponseProviderRequest, EW.EwSimResponseWithBody objects)
 - `create-response` built-in module
 - `http-request` built-in module (which internally triggers a HTTP request with node-fetch)
 - `log` built-in module (which is a simple shim module of `console.log` function)
@@ -214,7 +214,7 @@ By using the local simulator above, you can also use the same Jest's module name
 
 Here is a sample code for the testing and expects to use [Jest](https://jestjs.io/) and [ts-jest](https://kulshekhar.github.io/ts-jest/) for testing.
 
-In this sample code, at first, you will need to create a `EW.ResponseProviderRequest` object for your simulated test, and it will be passed to `responseProvider()` API which is in your `main.ts` implementation for your testing.
+In this sample code, at first, you will need to create a `EW.EwSimResponseProviderRequest` object for your simulated test, and it will be passed to `responseProvider()` API which is in your `main.ts` implementation for your testing.
 
 Then, `responseProvider()` function will return a response object which contains WHATWG `ReadableStream` object.
 
@@ -247,7 +247,7 @@ describe("Test for main module", (): void => {
 
         // Call responseProvider EdgeWorkers API surface for this testing.
         const rpResponse = await responseProvider(req);
-        // We expects EW.Response object as returned object from responseProvider
+        // We expects EW.EwSimResponseWithBody object as returned object from responseProvider
         // of this EdgeWorkers local simulator implementation.
         const ewResponse = rpResponse as EW.EwSimResponseWithBody;
         // ewResponse.body is a ReadableStream which contains a manipulated result of response body for your test request,
