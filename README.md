@@ -234,8 +234,8 @@ describe("Test for main module", (): void => {
     test("Test #2", async (): Promise<void> => {
         const expected = fs.readFileSync("tests/results/TestResult_module1_test1.html");
 
-        // Create a simulated Test Request for Response Provider.
-        const req = new EW.ResponseProviderRequest(
+        // Create a simulated Request object for Response Provider in your test.
+        const req = new EW.EwSimResponseProviderRequest(
             "edgeworkersorigin.azurewebsites.net",
             "GET",
             "/index.html",
@@ -249,7 +249,7 @@ describe("Test for main module", (): void => {
         const rpResponse = await responseProvider(req);
         // We expects EW.Response object as returned object from responseProvider
         // of this EdgeWorkers local simulator implementation.
-        const ewResponse = rpResponse as EW.Response;
+        const ewResponse = rpResponse as EW.EwSimResponseWithBody;
         // ewResponse.body is a ReadableStream which contains a manipulated result of response body for your test request,
         // which is transformed by your transformer inmplementation
         let result = "";
