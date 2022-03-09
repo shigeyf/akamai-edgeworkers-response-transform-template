@@ -4,8 +4,8 @@
  * Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
  */
 
-import { Device } from "../Device";
-import { UserLocation } from "../UserLocation";
+import { Device } from "./Device";
+import { UserLocation } from "./UserLocation";
 
 export interface Request {
     /**

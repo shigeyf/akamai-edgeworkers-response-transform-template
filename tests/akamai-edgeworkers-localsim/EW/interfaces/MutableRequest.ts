@@ -7,6 +7,7 @@
 import { MutatesHeaders } from "./MutatesHeaders";
 import { ReadsHeaders } from "./ReadsHeaders";
 import { ReadsVariables } from "./ReadsVariables";
+import { Request } from "./Request";
 
 // Legacy interfaces for backwards compatability
 export interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {}

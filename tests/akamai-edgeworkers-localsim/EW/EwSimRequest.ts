@@ -1,5 +1,5 @@
 /**
- * tests/akamai-edgeworkers-localsim/EW/Request.ts
+ * tests/akamai-edgeworkers-localsim/EW/EwSimRequest.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,10 +23,9 @@
  *
  */
 
-import { Device } from "./Device";
-import { UserLocation } from "./UserLocation";
+import { Request, Device, UserLocation } from "./interfaces";
 
-export class Request {
+export class EwSimRequest implements Request {
     /**
      * The Host header value of the incoming request.
      */

@@ -8,5 +8,4 @@ import { HasStatus } from "./HasStatus";
 import { MutatesHeaders } from "./MutatesHeaders";
 import { ReadsHeaders } from "./ReadsHeaders";
 
-export interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {
-}
+export interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {}

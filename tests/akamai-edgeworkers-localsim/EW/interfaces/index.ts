@@ -15,7 +15,6 @@ export * from "./ReadAllHeaders";
 export * from "./ReadsHeaders";
 export * from "./ReadsVariables";
 
-/*
 // Interfaces for EdgeWorkers object implementations
 export * from "./CacheKey";
 export * from "./Destination";
@@ -35,4 +34,3 @@ export * from "./ResponseProviderRequest";
 export * from "./ImmutableRequest";
 export * from "./MutableRequest";
 export * from "./Response";
-*/

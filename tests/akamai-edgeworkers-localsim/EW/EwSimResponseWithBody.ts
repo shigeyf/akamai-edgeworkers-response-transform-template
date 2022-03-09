@@ -1,5 +1,5 @@
 /**
- * tests/akamai-edgeworkers-localsim/EW/Response.ts
+ * tests/akamai-edgeworkers-localsim/EW/EwSimResponseWithBody.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,14 +23,12 @@
  *
  */
 
+import { EwSimResponse } from "./EwSimResponse";
 import { ReadableStream } from "node:stream/web";
-import { HasStatus, MutatesHeaders, ReadsHeaders, Headers } from "./interfaces";
 
-export class Response implements HasStatus, MutatesHeaders, ReadsHeaders {
-    status: number;
+export class EwSimResponseWithBody extends EwSimResponse {
     body: string | ReadableStream;
-    denyReason: string | undefined;
-    private _headers: Headers;
+    denyReason?: string;
 
     constructor(
         status: number,
@@ -38,45 +36,8 @@ export class Response implements HasStatus, MutatesHeaders, ReadsHeaders {
         body: string | ReadableStream,
         denyReason?: string
     ) {
-        this.status = status;
-        this._headers = {};
-        Object.keys(headers).forEach((key) => {
-            let headerValues = headers[key];
-            if (!Array.isArray(headerValues)) {
-                headerValues = [headers[key] as string];
-            }
-            this._headers[key] = headerValues;
-        });
+        super(status, headers);
         this.body = body;
         this.denyReason = denyReason;
-    }
-
-    getHeader(name: string): string[] | null {
-        if (this._headers[name] != undefined) {
-            return this._headers[name];
-        }
-        return null;
-    }
-
-    setHeader(name: string, value: string | string[]): void {
-        if (Array.isArray(value)) {
-            this._headers[name] = value;
-        } else {
-            this._headers[name] = [value];
-        }
-    }
-
-    addHeader(name: string, value: string | string[]): void {
-        if (Array.isArray(value)) {
-            value.forEach((v) => {
-                this._headers[name].push(v);
-            });
-        } else {
-            this._headers[name].push(value);
-        }
-    }
-
-    removeHeader(name: string): void {
-        delete this._headers[name];
     }
 }

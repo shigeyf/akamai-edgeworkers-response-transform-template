@@ -4,7 +4,7 @@
  * Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
  */
 
-//import { Destination } from '../classes';
+import { Destination } from "./Destination";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HasRoute {
@@ -25,5 +25,5 @@ export interface HasRoute {
      *
      * @param destination A JavaScript object containing the optional properties that will control route. An error is thrown if the input is not a JavaScript Object.
      */
-    //route(destination: Destination): void;
+    route(destination: Destination): void;
 }

@@ -6,6 +6,7 @@
 
 import { ReadsHeaders } from "./ReadsHeaders";
 import { ReadsVariables } from "./ReadsVariables";
+import { Request } from "./Request";
 
 // Legacy interfaces for backwards compatability
 export interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {}

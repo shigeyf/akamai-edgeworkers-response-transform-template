@@ -1,5 +1,5 @@
 /**
- * tests/akamai-edgeworkers-localsim/EW/Device.ts
+ * tests/akamai-edgeworkers-localsim/EW/EwSimDevice.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,12 +23,13 @@
  *
  */
 
-/**
- * Notes:
- * * If device properties can not be supplied for any reason,
- *   undefined is returned for each property
- */
-export class Device {
+import { Device } from "./interfaces/Device";
+
+export class EwSimDevice implements Device {
+    // Notes:
+    // If device properties can not be supplied for any reason,
+    // undefined is returned for each property
+
     /**
      * Brand name of the device.
      */

@@ -8,7 +8,7 @@ import { ReadsHeaders } from "./ReadsHeaders";
 import { ReadsVariables } from "./ReadsVariables";
 import { Request } from "./Request";
 import { HasRespondWith } from "./HasRespondWith";
-import { MutatesVariables } from "./MutatesVariables"
- 
+import { MutatesVariables } from "./MutatesVariables";
+
 // onOriginResponse
 export interface EgressOriginRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {}

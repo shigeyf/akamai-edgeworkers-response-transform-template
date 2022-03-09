@@ -48,7 +48,7 @@ describe("Test #2 for main responseProvider module", (): void => {
         const expected = TestParameters[0].expectedResponseBody?.toString();
 
         // Create a simulated Request for Response Provider
-        const req = new EW.ResponseProviderRequest(
+        const req = new EW.EwSimResponseProviderRequest(
             "edgeworkersorigin.azurewebsites.net",
             "GET",
             "/index.html",
@@ -59,7 +59,7 @@ describe("Test #2 for main responseProvider module", (): void => {
         );
 
         const rpResponse = await responseProvider(req);
-        const ewResponse = rpResponse as EW.Response;
+        const ewResponse = rpResponse as EW.EwSimResponseWithBody;
         let result = "";
         for await (const chunk of ewResponse.body) {
             const chunkStr = new TextDecoder().decode(chunk);

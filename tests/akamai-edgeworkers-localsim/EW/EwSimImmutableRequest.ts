@@ -1,5 +1,5 @@
 /**
- * tests/akamai-edgeworkers-localsim/EW/ResponseProviderRequest.ts
+ * tests/akamai-edgeworkers-localsim/EW/EwSimImmutableRequest.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,13 +23,14 @@
  *
  */
 
-import { Request } from "./Request";
-import { UserLocation } from "./UserLocation";
-import { Device } from "./Device";
-import { ReadsHeaders, ReadAllHeader, Headers } from "./interfaces";
+import { ImmutableRequest } from "./interfaces";
+import { Device, UserLocation } from "./interfaces";
+import { EwSimRequest } from "./EwSimRequest";
 
-export class ResponseProviderRequest extends Request implements ReadsHeaders, ReadAllHeader {
+// Legacy interfaces for backwards compatability
+export class EwSimImmutableRequest extends EwSimRequest implements ImmutableRequest {
     private readonly _headers: { [key: string]: string[] };
+    private readonly _variables: { [key: string]: string };
 
     constructor(
         host: string,
@@ -41,25 +42,37 @@ export class ResponseProviderRequest extends Request implements ReadsHeaders, Re
         cpCode: number,
         userLocation?: UserLocation,
         decice?: Device,
-        headers?: { [key: string]: string[] }
+        headers?: { [key: string]: string[] },
+        variables?: { [key: string]: string }
     ) {
         super(host, method, path, scheme, query, url, cpCode, userLocation, decice);
         this._headers = {};
-        if (headers != undefined) {
-            Object.keys(headers).forEach((key) => {
-                this._headers[key] = headers[key];
-            });
-        }
+        this._variables = {};
+        Object.keys(headers).forEach((key) => {
+            this._headers[key] = headers[key];
+        });
+        Object.keys(variables).forEach((key) => {
+            this._variables[key] = variables[key];
+        });
     }
 
+    //
+    // Implementations for ReadsHeaders interfaces
+    //
     getHeader(name: string): string[] | null {
-        if (this._headers[name] != undefined) {
+        if (this._headers.hasOwnProperty(name)) {
             return this._headers[name];
         }
         return null;
     }
 
-    getHeaders(): Headers {
-        return this._headers;
+    //
+    // Implementations for ReadsVariables interfaces
+    //
+    getVariable(name: string): string | undefined {
+        if (this._variables.hasOwnProperty(name)) {
+            return this._variables[name];
+        }
+        return undefined;
     }
 }

@@ -1,5 +1,5 @@
 /**
- * tests/akamai-edgeworkers-localsim/EW/UserLocation.ts
+ * tests/akamai-edgeworkers-localsim/EW/EwSimUserLocation.ts
  *
  * Copyright (c) 2021 Shigeyuki Fukushima <shigeyf@outlook.com>
  *
@@ -23,15 +23,16 @@
  *
  */
 
-/**
- * Notes:
- * * If the IP address is in the reserved IP space (as designated by the
- *   Internet Assigned Numbers Authority), every property will have the
- *   value of ‘reserved’.
- * * If user location properties can not be supplied for any reason,
- *   undefined is returned for that property
- */
-export class UserLocation {
+import { UserLocation } from "./interfaces/UserLocation";
+
+export class EwSimUserLocation implements UserLocation {
+    // Notes:
+    // - If the IP address is in the reserved IP space (as designated by the
+    //   Internet Assigned Numbers Authority), every property will have the
+    //   value of ‘reserved’.
+    // - If user location properties can not be supplied for any reason,
+    //   undefined is returned for that property
+
     /**
      * The continent value is a two-letter code for the continent that
      * the IP address maps to.
