@@ -23,7 +23,7 @@
  *
  */
 
-import { EW } from "./akamai-edgeworkers-localsim/EW";
+import { EW } from "../akamai-edgeworkers-localsim/src/EW";
 import { TestParams } from "./testutils/TestParams";
 import { TextDecoder } from "node:util";
 

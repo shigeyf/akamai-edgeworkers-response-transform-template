@@ -23,9 +23,9 @@
  *
  */
 
-import { ReadableStream } from "./akamai-edgeworkers-localsim/streams";
-import { TransformStream } from "./akamai-edgeworkers-localsim/streams";
-import { TextDecoderStream, TextEncoderStream } from "./akamai-edgeworkers-localsim/streams";
+import { ReadableStream } from "../akamai-edgeworkers-localsim/src/streams";
+import { TransformStream } from "../akamai-edgeworkers-localsim/src/streams";
+import { TextDecoderStream, TextEncoderStream } from "../akamai-edgeworkers-localsim/src/text-encode-transform";
 
 import { TextDecoder } from "node:util";
 import { HttpFileSourceReader } from "./testutils/HttpFileSourceReader";

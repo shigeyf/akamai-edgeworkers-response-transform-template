@@ -1,0 +1,3 @@
+[submodule "akamai-edgeworkers-localsim"]
+	path = akamai-edgeworkers-localsim
+	url = https://github.com/shigeyf/akamai-edgeworkers-localsim
