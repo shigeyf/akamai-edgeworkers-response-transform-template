@@ -9,13 +9,13 @@ module.exports = {
     testEnvironment: "node",
     testMatch: ["<rootDir>/**/tests/**/*.test.(ts|tsx|js)"],
     moduleNameMapper: {
-        "^cookie$": "<rootDir>/tests/akamai-edgeworkers-localsim/cookie",
-        "^create-response$": "<rootDir>/tests/akamai-edgeworkers-localsim/create-response",
-        "^http-request$": "<rootDir>/tests/akamai-edgeworkers-localsim/http-request",
-        "^log$": "<rootDir>/tests/akamai-edgeworkers-localsim/log",
-        "^streams$": "<rootDir>/tests/akamai-edgeworkers-localsim/streams",
-        "^text-encode-transform$": "<rootDir>/tests/akamai-edgeworkers-localsim/text-encode-transform",
-        "^url-search-params$": "<rootDir>/tests/akamai-edgeworkers-localsim/url-search-params"
+        "^cookie$": "<rootDir>/akamai-edgeworkers-localsim/src/cookie",
+        "^create-response$": "<rootDir>/akamai-edgeworkers-localsim/src/create-response",
+        "^http-request$": "<rootDir>/akamai-edgeworkers-localsim/src/http-request",
+        "^log$": "<rootDir>/akamai-edgeworkers-localsim/src/log",
+        "^streams$": "<rootDir>/akamai-edgeworkers-localsim/src/streams",
+        "^text-encode-transform$": "<rootDir>/akamai-edgeworkers-localsim/src/text-encode-transform",
+        "^url-search-params$": "<rootDir>/akamai-edgeworkers-localsim/src/url-search-params"
     },
     verbose: true
 };
